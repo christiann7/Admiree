@@ -62,23 +62,20 @@ confetti.render();
   document.body.appendChild(p);
 
 
-  // 1. Create the iframe element
-const iframe = document.createElement("iframe");
+ const iframe = document.createElement("iframe");
 
-// 2. Set the Google Form URL (Note: I fixed the closing quote and added embedded=true)
+// FIXED URL: added ?embedded=true and fixed the closing quote
 iframe.src = "https://docs.google.com/forms/d/e/1FAIpQLSe4rOBXd0n6uENLvonJnUKi1AjEjxfXi-gtUs7TBCWutn-kng/viewform?embedded=true";
 
-// 3. Style it so it looks good
 iframe.style.position = "absolute";
-iframe.style.top = "60%"; // Adjusted so it doesn't cover your text
+iframe.style.top = "60%"; 
 iframe.style.left = "50%";
 iframe.style.transform = "translateX(-50%)";
-iframe.style.width = "80%";
-iframe.style.height = "400px";
+iframe.style.width = "90%"; // Made it wider for mobile
+iframe.style.height = "500px";
 iframe.style.border = "none";
-iframe.style.zIndex = "1001"; // Put it above the confetti
+iframe.style.zIndex = "1001"; 
 
-// 4. Add it to the page
 document.body.appendChild(iframe);
 
 });
