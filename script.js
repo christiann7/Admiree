@@ -51,7 +51,7 @@ var confetti = new ConfettiGenerator(confettiSettings);
 confetti.render();
 
  let p = document.createElement("p");
- p.innerText = "TAMA KA NG DESISYON 🎉 \n CHAT MO KO KUNG ANO GUSTO MO 😉";
+ p.innerText = "NICE TAMA KA NG DESISYON 🎉 \n SABIHAN MO KO KUNG ANO GUSTO MO!";
   p.style.fontSize = "2rem";
   p.style.fontWeight = "bold";
   p.style.textAlign = "center";
