@@ -62,27 +62,23 @@ confetti.render();
   document.body.appendChild(p);
 
 
-  const panel = vscode.window.createWebviewPanel(
-    'googleForm', 
-    'Q&A Session', 
-    vscode.ViewColumn.One, 
-    { enableScripts: true }
-);
+  // 1. Create the iframe element
+const iframe = document.createElement("iframe");
 
-panel.webview.html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <style>
-            body { margin: 0; padding: 0; height: 100vh; overflow: hidden; }
-            iframe { width: 100%; height: 100%; border: none; }
-        </style>
-    </head>
-    <body>
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe4rOBXd0n6uENLvonJnUKi1AjEjxfXi-gtUs7TBCWutn-kng/viewform?usp=header</iframe>
-    </body>
-    </html>
-`;
+// 2. Set the Google Form URL (Note: I fixed the closing quote and added embedded=true)
+iframe.src = "https://docs.google.com/forms/d/e/1FAIpQLSe4rOBXd0n6uENLvonJnUKi1AjEjxfXi-gtUs7TBCWutn-kng/viewform?embedded=true";
+
+// 3. Style it so it looks good
+iframe.style.position = "absolute";
+iframe.style.top = "60%"; // Adjusted so it doesn't cover your text
+iframe.style.left = "50%";
+iframe.style.transform = "translateX(-50%)";
+iframe.style.width = "80%";
+iframe.style.height = "400px";
+iframe.style.border = "none";
+iframe.style.zIndex = "1001"; // Put it above the confetti
+
+// 4. Add it to the page
+document.body.appendChild(iframe);
 
 });
