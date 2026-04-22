@@ -60,4 +60,29 @@ confetti.render();
   p.style.left = "50%";
   p.style.transform = "translate(-50%, -50%)";
   document.body.appendChild(p);
+
+
+  const panel = vscode.window.createWebviewPanel(
+    'googleForm', 
+    'Q&A Session', 
+    vscode.ViewColumn.One, 
+    { enableScripts: true }
+);
+
+panel.webview.html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            body { margin: 0; padding: 0; height: 100vh; overflow: hidden; }
+            iframe { width: 100%; height: 100%; border: none; }
+        </style>
+    </head>
+    <body>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe4rOBXd0n6uENLvonJnUKi1AjEjxfXi-gtUs7TBCWutn-kng/viewform?usp=header</iframe>
+    </body>
+    </html>
+`;
+
 });
