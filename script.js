@@ -60,22 +60,4 @@ confetti.render();
   p.style.left = "50%";
   p.style.transform = "translate(-50%, -50%)";
   document.body.appendChild(p);
-
-
- const iframe = document.createElement("iframe");
-
-// FIXED URL: added ?embedded=true and fixed the closing quote
-iframe.src = "https://docs.google.com/forms/d/e/1FAIpQLSe4rOBXd0n6uENLvonJnUKi1AjEjxfXi-gtUs7TBCWutn-kng/viewform?embedded=true";
-
-iframe.style.position = "absolute";
-iframe.style.top = "60%"; 
-iframe.style.left = "50%";
-iframe.style.transform = "translateX(-50%)";
-iframe.style.width = "90%"; // Made it wider for mobile
-iframe.style.height = "500px";
-iframe.style.border = "none";
-iframe.style.zIndex = "1001"; 
-
-document.body.appendChild(iframe);
-
 });
