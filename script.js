@@ -5,12 +5,14 @@ import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/
 const firebaseConfig = {
     apiKey: "AIzaSyDKN5XrypQZ4IpABMeCUSXEpheREHOiXNw",
     authDomain: "admire-91da1.firebaseapp.com",
+    // ADD THIS EXACT LINE BELOW:
+    databaseURL: "https://admire-91da1-default-rtdb.asia-southeast1.firebasedatabase.app", 
     projectId: "admire-91da1",
     storageBucket: "admire-91da1.firebasestorage.app",
     messagingSenderId: "898670519968",
     appId: "1:898670519968:web:c59c0ef44cb9cbe9630bc5",
     measurementId: "G-2CM4KMW8SD"
-};
+};;
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
