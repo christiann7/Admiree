@@ -1,40 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H87QDWEFC6"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H87QDWEFC6');
+</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="
+    https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js
+    "></script>    
     <title>Hi po!!</title>
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H87QDWEFC6"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-H87QDWEFC6');
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>    
-    
     <link rel="icon" href="https://em-content.zobj.net/source/skype/289/red-heart_2764-fe0f.png" type="image/x-icon" />
     <link rel="stylesheet" href="style.css">
-</head>
-<body>
+  </head>
+  <body>
     <header id="main">
-        <h1>Hi kape tayo</h1>
+      <h1>Libre kita kape?</h1>
+
     </header>
-    
     <main>
-        <canvas id="confetti-canvas"></canvas>
+      <canvas id="confetti-canvas"></canvas>
 
-        <div class="gif-container">
-            <img id="gif" src="pls2.gif" alt="Please" />
-        </div>
-        <div class="button-container">
-            <button id="no-button">Ayoko</button>
-            <button id="yes-button">Sige</button>
-        </div>
+      <div class="gif-container">
+        <img id="gif" src="pls2.gif" alt="Please" />
+      </div>
+      <div class="button-container">
+        <button id="no-button">Sige</button>
+        <button id="yes-button">Ayoko</button>
+      </div>
     </main>
+    <!-- <canvas id="confetti-canvas" width="800" height="600"></canvas> -->
+    <script src="./script.js"></script>
 
-    <script type="module" src="./script.js"></script>
-</body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDKN5XrypQZ4IpABMeCUSXEpheREHOiXNw",
+    authDomain: "admire-91da1.firebaseapp.com",
+    projectId: "admire-91da1",
+    storageBucket: "admire-91da1.firebasestorage.app",
+    messagingSenderId: "898670519968",
+    appId: "1:898670519968:web:c59c0ef44cb9cbe9630bc5",
+    measurementId: "G-2CM4KMW8SD"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
+
+  </body>
 </html>
