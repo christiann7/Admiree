@@ -87,7 +87,7 @@ yesButton.addEventListener("click", () => {
 
     // Show Success Message
     let p = document.createElement("p");
-    p.innerText = "NICE TAMA KA NG DESISYON 🎉 \n SABIHAN MO KO KUNG ANO GUSTO MO!";
+    p.innerText = "HAHAHAHAHAHAHAHHAHAHAHHAHHAHAHAHHAHHAHAHAHHAHHAHAHAHHAHHAHAHAHHAHHAHAHAHHAHHAHAHAHHAHHAHAHAHHAHHAHAHAHHAHHAHAHAHHAHHAHAHAHHAHHAHAHA";
     p.style.cssText = `
         font-size: 2rem; 
         font-weight: bold; 
