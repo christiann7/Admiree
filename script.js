@@ -2,18 +2,24 @@
 const firebaseConfig = {
   apiKey: "AIzaSyDKN5XrypQZ4IpABMeCUSXEpheREHOiXNw",
   authDomain: "admire-91da1.firebaseapp.com",
-  databaseURL: "https://admire-91da1-default-rtdb.firebaseio.com",
+  databaseURL: "https://admire-91da1-default-rtdb.asia-southeast1.firebasedatabase.app/",
   projectId: "admire-91da1",
   storageBucket: "admire-91da1.firebasestorage.app",
   messagingSenderId: "898670519968",
   appId: "1:898670519968:web:c59c0ef44cb9cbe9630bc5"
 };
 
-// Initialize Firebase (use existing firebase global from compat SDK)
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+let database;
+if (typeof firebase !== 'undefined') {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  database = firebase.database();
+  console.log("✅ Firebase initialized successfully");
+} else {
+  console.error("❌ Firebase SDK not loaded!");
 }
-const database = firebase.database();
 
 // Get the "No" button element
 const noButton = document.getElementById("no-button");
@@ -68,7 +74,18 @@ var confetti = new ConfettiGenerator(confettiSettings);
 confetti.render();
 
  // Save to Firebase Realtime Database
+ if (!database) {
+   console.error("❌ Database not initialized!");
+   alert("Error: Database not initialized. Check console for details.");
+   return;
+ }
+ 
+ console.log("🔄 Attempting to save to Firebase...");
+ console.log("Database object:", database);
+ 
  const responsesRef = database.ref('responses');
+ console.log("Responses ref:", responsesRef);
+ 
  responsesRef.push({
    answer: "Yes",
    timestamp: firebase.database.ServerValue.TIMESTAMP
@@ -77,7 +94,9 @@ confetti.render();
    alert("Salamat! Response saved na! ❤️");
  }).catch((error) => {
    console.error("❌ Error saving response:", error);
-   alert("Error: " + error.message);
+   console.error("Error code:", error.code);
+   console.error("Error message:", error.message);
+   alert("Error: " + error.code + " - " + error.message);
  });
 
  let p = document.createElement("p");
