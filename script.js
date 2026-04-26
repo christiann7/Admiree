@@ -1,3 +1,18 @@
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "admire-91da1.firebaseapp.com",
+  databaseURL: "https://admire-91da1-default-rtdb.firebaseio.com",
+  projectId: "admire-91da1",
+  storageBucket: "admire-91da1.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
 // Get the "No" button element
 const noButton = document.getElementById("no-button");
 
@@ -49,6 +64,17 @@ confettiElement.style.zIndex = "1000";
 var confetti = new ConfettiGenerator(confettiSettings);
 
 confetti.render();
+
+ // Save to Firebase Realtime Database
+ const responsesRef = database.ref('responses');
+ responsesRef.push({
+   answer: "Yes",
+   timestamp: firebase.database.ServerValue.TIMESTAMP
+ }).then(() => {
+   console.log("Response saved to Firebase!");
+ }).catch((error) => {
+   console.error("Error saving response:", error);
+ });
 
  let p = document.createElement("p");
  p.innerText = "Nice san mo gusto?";
