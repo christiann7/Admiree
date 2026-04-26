@@ -1,16 +1,18 @@
-// Firebase configuration
+// Firebase configuration (from Firebase Console)
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "AIzaSyDKN5XrypQZ4IpABMeCUSXEpheREHOiXNw",
   authDomain: "admire-91da1.firebaseapp.com",
   databaseURL: "https://admire-91da1-default-rtdb.firebaseio.com",
   projectId: "admire-91da1",
-  storageBucket: "admire-91da1.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  storageBucket: "admire-91da1.firebasestorage.app",
+  messagingSenderId: "898670519968",
+  appId: "1:898670519968:web:c59c0ef44cb9cbe9630bc5"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase (use existing firebase global from compat SDK)
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 const database = firebase.database();
 
 // Get the "No" button element
@@ -71,9 +73,11 @@ confetti.render();
    answer: "Yes",
    timestamp: firebase.database.ServerValue.TIMESTAMP
  }).then(() => {
-   console.log("Response saved to Firebase!");
+   console.log("✅ Response saved to Firebase!");
+   alert("Salamat! Response saved na! ❤️");
  }).catch((error) => {
-   console.error("Error saving response:", error);
+   console.error("❌ Error saving response:", error);
+   alert("Error: " + error.message);
  });
 
  let p = document.createElement("p");
