@@ -86,13 +86,10 @@ confetti.render();
  
  const responsesRef = database.ref('responses');
  console.log("Responses ref:", responsesRef);
-
- const date = new Date(snapshot.val().timestamp);
- console.log(date.toLocaleString()); // Output: 4/27/2026, 9:07:51 AM
  
  responsesRef.push({
    answer: "Yes",
-   DataView: responsesRef.toString(),
+   date: new Date(timestamp).toISOString(),
    timestamp: firebase.database.ServerValue.TIMESTAMP
  }).then(() => {
    console.log("✅ Response saved to Firebase!");
