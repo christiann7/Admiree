@@ -37,7 +37,6 @@ noButton.addEventListener("mouseover", () => {
   const maxY = window.innerHeight - buttonHeight;
   const adjustedX = x < maxX ? x : maxX;
   const adjustedY = y < maxY ? y : maxY;
-  
 
   // Apply the new position to the button
   noButton.style.position = "absolute";
@@ -89,7 +88,6 @@ confetti.render();
  
  responsesRef.push({
    answer: "Yes",
-   date: new Date(timestamp).toISOString(),
    timestamp: firebase.database.ServerValue.TIMESTAMP
  }).then(() => {
    console.log("✅ Response saved to Firebase!");
