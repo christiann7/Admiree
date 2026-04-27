@@ -88,7 +88,7 @@ confetti.render();
  
  responsesRef.push({
    answer: "Yes",
-   DataTransfer: new Date().toISOString(),
+   DataView: responsesRef.toString(),
    timestamp: firebase.database.ServerValue.TIMESTAMP
  }).then(() => {
    console.log("✅ Response saved to Firebase!");
