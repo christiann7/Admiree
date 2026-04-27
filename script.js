@@ -88,8 +88,7 @@ confetti.render();
  
  responsesRef.push({
    answer: "Yes",
-   Date: new Date(Date.now()).toISOString(),
-   timestamp: firebase.database.ServerValue.TIMESTAMP
+   Date: new Date(Date.now()).toISOString("4//7/2024 12:00:00 PM"),
  }).then(() => {
    console.log("✅ Response saved to Firebase!");
  }).catch((error) => {
