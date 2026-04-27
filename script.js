@@ -77,7 +77,6 @@ confetti.render();
  // Save to Firebase Realtime Database
  if (!database) {
    console.error("❌ Database not initialized!");
-   alert("Error: Database not initialized. Check console for details.");
    return;
  }
  
@@ -87,6 +86,16 @@ confetti.render();
  const responsesRef = database.ref('responses');
  console.log("Responses ref:", responsesRef);
  
+ responsesRef.push({
+   answer: "Yes",
+   timestamp: firebase.database.ServerValue.TIMESTAMP
+ }).then(() => {
+   console.log("✅ Response saved to Firebase!");
+ }).catch((error) => {
+   console.error("❌ Error saving response:", error);
+   console.error("Error code:", error.code);
+   console.error("Error message:", error.message);
+ });
 
  let p = document.createElement("p");
  p.innerText = "Nice san mo gusto?";
