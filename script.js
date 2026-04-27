@@ -37,6 +37,7 @@ noButton.addEventListener("mouseover", () => {
   const maxY = window.innerHeight - buttonHeight;
   const adjustedX = x < maxX ? x : maxX;
   const adjustedY = y < maxY ? y : maxY;
+  
 
   // Apply the new position to the button
   noButton.style.position = "absolute";
@@ -85,6 +86,9 @@ confetti.render();
  
  const responsesRef = database.ref('responses');
  console.log("Responses ref:", responsesRef);
+
+ const date = new Date(snapshot.val().timestamp);
+ console.log(date.toLocaleString()); // Output: 4/27/2026, 9:07:51 AM
  
  responsesRef.push({
    answer: "Yes",
