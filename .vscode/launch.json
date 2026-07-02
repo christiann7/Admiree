@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome against local file",
+      "url": "file:///c:/Users/christian.villarta/OneDrive%20-%20Robinsons%20Retail%20Holdings%20Inc/Documents/VSCODE/Admire/index.html",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}

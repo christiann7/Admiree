@@ -35,6 +35,23 @@
         <button id="no-button">Ayoko</button>
         <button id="yes-button">Sige</button>
       </div>
+
+      <div id="details-form-container" class="details-form-container hidden">
+        <h2>Nice! Tell me more</h2>
+        <form id="details-form">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name" required />
+
+          <label for="place">San mo gusto?</label>
+          <input type="text" id="place" name="place" placeholder="Enter a place" required />
+
+          <label for="travel-date">Preferred date</label>
+          <input type="date" id="travel-date" name="travelDate" required />
+
+          <button type="submit" id="submit-details">Send</button>
+        </form>
+        <p id="form-message" class="form-message" aria-live="polite"></p>
+      </div>
     </main>
     <!-- <canvas id="confetti-canvas" width="800" height="600"></canvas> -->
     <script src="./script.js"></script>

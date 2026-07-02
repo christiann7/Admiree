@@ -1,6 +1,6 @@
 // Firebase configuration (from Firebase Console)
 const firebaseConfig = {
- apiKey: "AIzaSyDKN5XrypQZ4IpABMeCUSXEpheREHOiXNw",
+  apiKey: "AIzaSyDKN5XrypQZ4IpABMeCUSXEpheREHOiXNw",
   authDomain: "admire-91da1.firebaseapp.com",
   databaseURL: "https://admire-91da1-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "admire-91da1",
@@ -10,9 +10,8 @@ const firebaseConfig = {
   measurementId: "G-2CM4KMW8SD"
 };
 
-// Initialize Firebase
 let database;
-if (typeof firebase !== 'undefined') {
+if (typeof firebase !== "undefined") {
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
@@ -22,89 +21,136 @@ if (typeof firebase !== 'undefined') {
   console.error("❌ Firebase SDK not loaded!");
 }
 
-// Get the "No" button element
 const noButton = document.getElementById("no-button");
-
-// Add a mouseover event listener to move the "No" button randomly
-noButton.addEventListener("mouseover", () => {
-  const x = Math.floor(Math.random() * window.innerWidth);
-  const y = Math.floor(Math.random() * window.innerHeight);
-
-  // Restrict the "No" button's movement within the bounds of the screen
-  const buttonWidth = noButton.offsetWidth;
-  const buttonHeight = noButton.offsetHeight;
-  const maxX = window.innerWidth - buttonWidth;
-  const maxY = window.innerHeight - buttonHeight;
-  const adjustedX = x < maxX ? x : maxX;
-  const adjustedY = y < maxY ? y : maxY;
-
-  // Apply the new position to the button
-  noButton.style.position = "absolute";
-  noButton.style.left = `${adjustedX}px`;
-  noButton.style.top = `${adjustedY}px`;
-});
-
-// Get the "Yes" button element
 const yesButton = document.getElementById("yes-button");
+const formContainer = document.getElementById("details-form-container");
+const detailsForm = document.getElementById("details-form");
+const formMessage = document.getElementById("form-message");
+const nameInput = document.getElementById("name");
+const placeInput = document.getElementById("place");
+const dateInput = document.getElementById("travel-date");
 
-// Add a click event listener to create confetti
-yesButton.addEventListener("click", () => {
-  
-var confettiElement = document.getElementById('confetti-canvas');
-var confettiSettings = { target: confettiElement, max: 729, size: 1, animate: true, props: ['circle', 'square', 'triangle', 'line'], colors: [[165,104,246],[230,61,135],[0,199,228],[253,214,126]], clock: 25, rotate: true,start_from_edge: true, respawn: true };
+async function saveResponse(payload) {
+  if (database) {
+    const responsesRef = database.ref("responses");
+    return responsesRef.push(payload);
+  }
 
-yesButton.style.display = "none";
-noButton.style.display = "none";
+  const response = await fetch(`${firebaseConfig.databaseURL}/responses.json`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
 
-var gif = document.getElementById("gif");
-var header = document.getElementById("main");
-header.style.display = "none";
-gif.style.display = "none";
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
 
-//change the style of the confetti canvas
-confettiElement.style.position = "absolute";
-confettiElement.style.top = "0";
-confettiElement.style.left = "0";
-confettiElement.style.width = "100%";
-confettiElement.style.height = "100%";
-confettiElement.style.zIndex = "1000";
+  return response.json();
+}
 
+if (noButton) {
+  noButton.addEventListener("mouseover", () => {
+    const x = Math.floor(Math.random() * window.innerWidth);
+    const y = Math.floor(Math.random() * window.innerHeight);
 
-var confetti = new ConfettiGenerator(confettiSettings);
+    const buttonWidth = noButton.offsetWidth;
+    const buttonHeight = noButton.offsetHeight;
+    const maxX = window.innerWidth - buttonWidth;
+    const maxY = window.innerHeight - buttonHeight;
+    const adjustedX = x < maxX ? x : maxX;
+    const adjustedY = y < maxY ? y : maxY;
 
-confetti.render();
+    noButton.style.position = "absolute";
+    noButton.style.left = `${adjustedX}px`;
+    noButton.style.top = `${adjustedY}px`;
+  });
+}
 
- // Save to Firebase Realtime Database
- if (!database) {
-   console.error("❌ Database not initialized!");
-   return;
- }
- 
- console.log("🔄 Attempting to save to Firebase...");
- console.log("Database object:", database);
- 
- const responsesRef = database.ref('responses');
- console.log("Responses ref:", responsesRef);
- 
- responsesRef.push({
-   answer: "Yes",
-   Date: new Date(Date.now()).toISOString(),
- }).then(() => {
-   console.log("✅ Response saved to Firebase!");
- }).catch((error) => {
-   console.error("❌ Error saving response:", error);
-   console.error("Error code:", error.code);
-   console.error("Error message:", error.message);
- });
+if (detailsForm) {
+  detailsForm.addEventListener("submit", (event) => {
+    event.preventDefault();
 
- let p = document.createElement("p");
- p.innerText = "Nice san mo gusto?";
-  p.style.fontSize = "2rem";
-  p.style.fontWeight = "bold";
-  p.style.textAlign = "center";
-  p.style.position = "absolute";
-  p.style.top = "50%";
-  p.style.left = "50%";
-  p.style.transform = "translate(-50%, -50%)";
-  document.body.appendChild(p);
-});
+    const name = nameInput.value.trim();
+    const place = placeInput.value.trim();
+    const travelDate = dateInput ? dateInput.value : "";
+
+    if (!name || !place || !travelDate) {
+      formMessage.textContent = "Please enter your name, place, and preferred date.";
+      formMessage.style.color = "#e74c3c";
+      return;
+    }
+
+    if (!database) {
+      formMessage.textContent = "Firebase is not ready yet.";
+      formMessage.style.color = "#e74c3c";
+      return;
+    }
+
+    saveResponse({
+      answer: "Yes",
+      name,
+      place,
+      travelDate,
+      createdAt: Date.now()
+    })
+      .then(() => {
+        formMessage.textContent = "Saved! Thank you.";
+        formMessage.style.color = "#2ecc71";
+        detailsForm.reset();
+      })
+      .catch((error) => {
+        console.error("❌ Error saving response:", error);
+        formMessage.textContent = "Something went wrong while saving.";
+        formMessage.style.color = "#e74c3c";
+      });
+  });
+}
+
+if (yesButton) {
+  yesButton.addEventListener("click", () => {
+    const confettiElement = document.getElementById("confetti-canvas");
+    const confettiSettings = {
+      target: confettiElement,
+      max: 729,
+      size: 1,
+      animate: true,
+      props: ["circle", "square", "triangle", "line"],
+      colors: [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]],
+      clock: 25,
+      rotate: true,
+      start_from_edge: true,
+      respawn: true
+    };
+
+    yesButton.style.display = "none";
+    noButton.style.display = "none";
+
+    const gif = document.getElementById("gif");
+    const header = document.getElementById("main");
+    if (header) header.style.display = "none";
+    if (gif) gif.style.display = "none";
+
+    if (confettiElement) {
+      confettiElement.style.position = "fixed";
+      confettiElement.style.top = "0";
+      confettiElement.style.left = "0";
+      confettiElement.style.width = "100%";
+      confettiElement.style.height = "100%";
+      confettiElement.style.zIndex = "0";
+      confettiElement.style.pointerEvents = "none";
+    }
+
+    if (typeof ConfettiGenerator !== "undefined") {
+      const confetti = new ConfettiGenerator(confettiSettings);
+      confetti.render();
+    }
+
+    if (formContainer) {
+      formContainer.classList.remove("hidden");
+      formContainer.style.display = "block";
+      formContainer.style.position = "relative";
+      formContainer.style.zIndex = "20";
+    }
+  });
+}
